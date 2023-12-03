@@ -4,6 +4,7 @@ import (
 	"e-commerce/config"
 	v1 "e-commerce/internal/controller/http/v1"
 	"e-commerce/pkg/fiber"
+	"e-commerce/pkg/fiber/middleware"
 	"fmt"
 	"log"
 	"os"
@@ -21,6 +22,8 @@ func NewHttpServer() {
 	address := fmt.Sprintf("%s:%d", config.GetString("service.http.host"), config.GetInt("server.http.port"))
 
 	server := fiber.NewServer()
+
+	middleware.Apply(server)
 
 	v1.RegisterRoutes(server)
 

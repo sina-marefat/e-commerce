@@ -14,21 +14,30 @@ import (
 	gofiber "github.com/gofiber/fiber/v2"
 )
 
+type HTTPServerConfig struct {
+	Host        string
+	Port        int
+	FullAddress string
+}
+
 // GracefullShutdownTimeout gracefull shutdown timeout
 const GracefullShutdownTimeout = 10 * time.Second
 
 func NewHttpServer() {
 
-	address := fmt.Sprintf("%s:%d", config.GetString("service.http.host"), config.GetInt("server.http.port"))
-
+	serverConfig := ServerConfig()
+	// Create Server
 	server := fiber.NewServer()
 
+	// Apply middlewares
 	middleware.Apply(server)
 
+	// Register Routes
 	v1.RegisterRoutes(server)
 
+	// Serve on goroutine to avoid blocking (for graceful shut down)
 	go func() {
-		err := server.Listen(address)
+		err := server.Listen(serverConfig.FullAddress)
 		if err != nil {
 			log.Fatalf("Failed to start server : %s", err)
 		}
@@ -48,4 +57,16 @@ func NewHttpServer() {
 
 func RegisterRoutes(server *gofiber.App) {
 	v1.RegisterRoutes(server)
+}
+
+func ServerConfig() HTTPServerConfig {
+	host := config.GetString("server.http.host")
+	port := config.GetInt("server.http.port")
+	fullAddress := fmt.Sprintf("%s:%d", host, port)
+
+	return HTTPServerConfig{
+		Host:        host,
+		Port:        port,
+		FullAddress: fullAddress,
+	}
 }

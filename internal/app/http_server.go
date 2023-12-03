@@ -9,6 +9,8 @@ import (
 	"os"
 	"os/signal"
 	"time"
+
+	gofiber "github.com/gofiber/fiber/v2"
 )
 
 // GracefullShutdownTimeout gracefull shutdown timeout
@@ -39,4 +41,8 @@ func NewHttpServer() {
 		log.Fatal(err)
 	}
 
+}
+
+func RegisterRoutes(server *gofiber.App) {
+	v1.RegisterRoutes(server)
 }

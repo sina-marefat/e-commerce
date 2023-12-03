@@ -1,0 +1,4 @@
+debug_mode: true
+opts:
+  jwt:
+    privatekey: test

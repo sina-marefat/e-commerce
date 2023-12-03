@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"e-commerce/config"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
@@ -14,4 +15,8 @@ func GetUserIDFromJWT(c *fiber.Ctx) (uint, error) {
 	uid, err := strconv.ParseUint(uidStr, 10, 32)
 
 	return uint(uid), err
+}
+
+func IsDebugMode() bool {
+	return config.GetBool("debug_mode")
 }

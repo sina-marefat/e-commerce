@@ -1,28 +1,20 @@
 package v1
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"e-commerce/internal/controller/http/v1/handlers"
 
-type v1Handler struct {
-}
+	"github.com/gofiber/fiber/v2"
+)
 
-func (h *v1Handler) signup(c *fiber.Ctx) error {
-	return nil
-}
-
-func (h *v1Handler) login(c *fiber.Ctx) error {
-	return nil
-}
-
-func RegisterRoutes(server *fiber.App) {
-	handler := v1Handler{}
+func RegisterRoutes(server *fiber.App, handler *handlers.V1Handler) {
 	v1 := server.Group("/v1")
 	{
 		user := v1.Group("/user")
 		{
 			auth := user.Group("/auth")
 			{
-				auth.Post("/signup", handler.signup)
-				auth.Post("/login", handler.login)
+				auth.Post("/signup", handler.Signup)
+				auth.Post("/login", handler.Login)
 			}
 		}
 	}

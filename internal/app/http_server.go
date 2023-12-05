@@ -3,6 +3,7 @@ package app
 import (
 	"e-commerce/config"
 	v1 "e-commerce/internal/controller/http/v1"
+	"e-commerce/internal/controller/http/v1/handlers"
 	"e-commerce/pkg/fiber"
 	"fmt"
 
@@ -23,7 +24,7 @@ func NewHttpServer() {
 
 // Register all domains routes
 func RegisterRoutes(server *gofiber.App) {
-	v1.RegisterRoutes(server)
+	v1.RegisterRoutes(server, handlers.NewV1Handler())
 }
 
 func ServerConfig() fiber.HTTPServerConfig {

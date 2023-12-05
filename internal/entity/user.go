@@ -7,5 +7,5 @@ type User struct {
 	FirstName   string `json:"first_name"`
 	LastName    string `json:"last_name"`
 	PhoneNumber string `json:"phone_number"`
-	CityID      int
+	CityID      int    `json:"city_id"`
 }

@@ -10,7 +10,7 @@ import (
 	gofiber "github.com/gofiber/fiber/v2"
 )
 
-func NewHttpServer() {
+func StartHttpServer() {
 
 	// Create Server
 	server := fiber.NewServer(ServerConfig())

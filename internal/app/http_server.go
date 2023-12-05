@@ -24,7 +24,7 @@ func StartHttpServer() {
 
 // Register all domains routes
 func RegisterRoutes(server *gofiber.App) {
-	v1.RegisterRoutes(server, handlers.NewV1Handler())
+	v1.RegisterRoutes(server, handlers.NewV1Handler(nil))
 }
 
 func ServerConfig() fiber.HTTPServerConfig {
